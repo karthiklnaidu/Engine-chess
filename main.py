@@ -97,12 +97,8 @@ class GamePlay:
             return False
 
     def is_legal_escape(self, square, player_color):
-        squares = []
-        for square in board.board:
-            squares.append(square)
-        if square in squares:
-            if board[square]['piece-color'] is not player_color and not self.is_check(player_color, square):
-                True
+        if board[square]['piece-color'] is not player_color and not self.is_check(player_color, square):
+             True
         return False
     
     def get_attacker(self, player_color, king_position):
@@ -414,6 +410,12 @@ class GamePlay:
             board[king_to]['piece-color'] = self.current_player
             board[rook_to]['piece-color'] = self.current_player
 
+            for rook in getattr(self, f'{self.current_player}_rook'):
+                if rook.position == rook_position:
+                    rook.position = rook_to
+            king = getattr(self, f'{self.current_player}_king')
+            king.position = king_to
+
         if(self.current_player == 'black'):
             if not self.anyPieceAtMiddle(king_position, rook_position):
                 if rook_position == "h8":
@@ -466,6 +468,7 @@ class GamePlay:
             else:
                 exit("Invalid move")
             self.current_player = 'black' if self.current_player == 'white' else 'white'
+            self.print_board()
             return
 
         if self.is_valid_move(from_square, to_square):
@@ -524,18 +527,20 @@ class GamePlay:
             for file in range(97, 105):  # ASCII values for 'a' to 'h'
                 square_name = chr(file) + str(rank)
                 flag = board[square_name]['piece']
+                color = board[square_name]['piece-color']
+
                 if(flag == 'pawn'):
-                    piece = 'P'
+                    piece = '♙' if color == 'white' else '♟︎'
                 elif flag == 'knight':
-                    piece = 'N'
+                    piece = '♘' if color == 'white' else '♞'
                 elif flag == 'bishop':
-                    piece = 'B'
+                    piece = '♗' if color == 'white' else '♝'
                 elif flag == 'rook':
-                    piece = 'R'
+                    piece = '♖' if color == 'white' else '♜'
                 elif flag == 'queen':
-                    piece = 'Q'
+                    piece = '♕' if color == 'white' else '♛'
                 elif flag == 'king':
-                    piece = 'K'
+                    piece = '♔' if color == 'white' else '♚'
                 else:
                     piece = flag
                 print(piece if piece else '-', end=" ")
@@ -614,9 +619,31 @@ def game3():
 def game4():
     game.move_piece('e2', 'e4')
     game.move_piece('e7', 'e5')
-    game.move_piece('g1', 'f3')
+    game.move_piece('d1', 'h5')
     game.move_piece('b8', 'c6')
-    game.move_piece('f1', 'b5')
+    game.move_piece('f1', 'c4')
+    game.move_piece('g7', 'g6')
+    game.move_piece('h5', 'f3')
+    game.move_piece('g8', 'f6')
+    game.move_piece('d2', 'd3')
+    game.move_piece('f8', 'g7')
+    game.move_piece('c1', 'g5')
+    game.move_piece(special_move='o-o')
+    game.move_piece('b1', 'd2')
+    game.move_piece('f8', 'e8')
+    game.move_piece('c4', 'f7')
+    game.move_piece('g8', 'f7')
+
+def gameinput():
+    while(True):
+        move = input("Move? ")
+        if move == "exit":
+            exit('Game Aborted!')
+        if move == 'o-o' or move == 'o-o-o':
+            game.move_piece(special_move=move)
+        else:
+            src, dtn = move.split(' ')
+            game.move_piece(src, dtn)
 
 # Initialize the chessboard
 board = cb.ChessBoard()
@@ -631,9 +658,7 @@ game = GamePlay()
 print("Initial Board:")
 game.print_board()
 
-game3()
-
-
+game4()
 # Print player points
 print("\nPlayer Points:")
 print("White:", player_points.points['white'])
