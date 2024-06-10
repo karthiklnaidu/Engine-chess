@@ -16,7 +16,10 @@ class ChessBoard:
                 }
 
     def __getitem__(self, key):
-        return self.board[key] 
+        try:
+            return self.board[key]
+        except KeyError:
+            return False
     
     def initializePieces(self):
         major_pieces = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook']

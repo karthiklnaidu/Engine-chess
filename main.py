@@ -97,8 +97,10 @@ class GamePlay:
             return False
 
     def is_legal_escape(self, square, player_color):
-        if board[square]['piece-color'] is not player_color and not self.is_check(player_color, square):
-             True
+        for _ in board.board:
+            if _ == square:
+                if board[square]['piece-color'] is not player_color and not self.is_check(player_color, square):
+                   return True
         return False
     
     def get_attacker(self, player_color, king_position):
@@ -146,7 +148,7 @@ class GamePlay:
 
                     for square_name in board.board:
                         piece_to_obstruct = board[square_name]
-                        if piece_to_obstruct['piece-color'] == player_color and piece_to_obstruct['piece'] is not None:
+                        if piece_to_obstruct['piece-color'] == player_color and piece_to_obstruct['piece'] is not 'king':
                             if self.can_attack(piece_to_obstruct, square_to_obstruct):
                                 return True
                     if(square_to_obstruct == attacker_position):
@@ -545,6 +547,7 @@ class GamePlay:
                     piece = flag
                 print(piece if piece else '-', end=" ")
             print()
+        print("\n----------------------------\n")
 
 def game1():
     print("\nBoard after moving white pawn from e2 to e4:")
@@ -633,6 +636,42 @@ def game4():
     game.move_piece('f8', 'e8')
     game.move_piece('c4', 'f7')
     game.move_piece('g8', 'f7')
+    game.move_piece('h2', 'h3')
+    game.move_piece('f7', 'g8')
+    game.move_piece('g5', 'f6')
+    game.move_piece('g7', 'f6')
+    game.move_piece('a1', 'c1')
+    game.move_piece('f6', 'g5')
+    game.move_piece('d3', 'd4')
+    game.move_piece('g5', 'd2')
+    game.move_piece('e1', 'd2')
+    game.move_piece('d7', 'd5')
+    game.move_piece('d2', 'e2')
+    game.move_piece('c6', 'd4')
+    game.move_piece('e2', 'd3')
+    game.move_piece('d4', 'f3')
+    game.move_piece('g1', 'f3')
+    game.move_piece('d5', 'e4')
+    game.move_piece('d3', 'e4')
+    game.move_piece('c8', 'f5')
+    game.move_piece('e4', 'e3')
+    game.move_piece('e5', 'e4')
+    game.move_piece('f3', 'h2')
+    game.move_piece('d8', 'd3')
+    game.move_piece('c2', 'd3')
+    game.move_piece('e4', 'd3')
+    game.move_piece('e3', 'f3')
+    game.move_piece('d3', 'd2')
+    game.move_piece('c1', 'c2')
+    game.move_piece('d2', 'd1')
+    game.move_piece('f3', 'g3')
+    game.move_piece('d1', 'd3')
+    game.move_piece('g3', 'h4')
+    game.move_piece('e8', 'e4')
+    game.move_piece('h4', 'g5')
+    game.move_piece('d3', 'd8')
+    game.move_piece('g5', 'h6')
+    game.move_piece('d8', 'h4')
 
 def gameinput():
     while(True):
