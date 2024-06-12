@@ -67,5 +67,8 @@ the game.
         });
        ```
 
+      [Reference to draggale of jQuery.](https://jqueryui.com/draggable/) <br>
+      [Reference to droppable of jQuery.](https://jqueryui.com/droppable/)
+
 
    
