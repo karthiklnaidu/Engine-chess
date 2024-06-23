@@ -49,6 +49,20 @@ class ChessBoard:
                 self.board[square_name]['file'] = chr(file)
                 self.board[square_name]['rank'] = rank
 
+    def get_piece(self, row, col):
+        """
+        Returns the piece at the specified row and column.
+        If no piece is present, returns None.
+        """
+        square_name = chr(97 + col) + str(8 - row)
+        square = self.board.get(square_name)
+        if square:
+            piece = square['piece']
+            piece_color = square['piece-color']
+            if piece and piece_color:
+                return f"{piece_color[0]}{'n' if piece == 'knight' else piece[0].lower()}"
+        return None
+
 if __name__ == "__main__":
     cb = ChessBoard()
     cb.initializePieces()
