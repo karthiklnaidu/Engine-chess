@@ -496,7 +496,7 @@ class GamePlay:
         king_position = getattr(self, f'{self.current_player}_king')
         if(self.is_check(self.current_player, king_position.position)):
             if(self.is_checkmate(self.current_player, king_position.position)):
-                exit(f"{self.current_player} got CHECKMATED!!")
+                raise Exception("checkmated")
             print(f"{self.current_player} king is in check")            
         # else:
         #     exit("Invalid move!")

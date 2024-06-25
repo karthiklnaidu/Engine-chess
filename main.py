@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import Toplevel, ttk
 from PIL import Image, ImageTk
 from chess_gameplay import GamePlay
 
@@ -31,6 +32,11 @@ class ChessBoard(tk.Frame):
                     label.bind("<ButtonRelease-1>", self.on_drag_end)
                     label.bind("<B1-Motion>", self.on_drag_motion)
                     label.place(x=0, y=0, width=self.square_size, height=self.square_size)
+
+    def open_popup(self, player, message):
+        status = Toplevel(root)
+        status.title("Status")
+        tk.Label(status, text=player + " got " + message).pack()
 
     def load_images(self):
         pieces = ['br', 'bn', 'bb', 'bq', 'bk', 'bp', 'wr', 'wn', 'wb', 'wq', 'wk', 'wp']
@@ -98,10 +104,13 @@ class ChessBoard(tk.Frame):
             from_square = chr(97 + start_col) + str(8 - start_row)
             to_square = chr(97 + target_col) + str(8 - target_row)
             print(from_square, to_square)
+            message = game.is_valid_move(from_square, to_square)
 
-            if self.game.is_valid_move(from_square, to_square):
+            if message is not None:
                 self.game.move_piece(from_square, to_square)
                 self.update_board()
+                if message == "checkmated":
+                    print(message)
             else:
                 self.reset_piece()
         else:
