@@ -505,27 +505,27 @@ class GamePlay:
         if self.board[from_square]['piece'] == 'pawn':
             for pawn in getattr(self, f'{self.current_player}_pawn'):
                 if pawn.position == from_square:
-                    return pawn.move(self.current_player, game, self.board[from_square], self.board[to_square])
+                    return pawn.move(self.current_player, self, self.board[from_square], self.board[to_square])
         elif self.board[from_square]['piece'] == 'knight':
             for knight in getattr(self, f'{self.current_player}_knight'):
                 if knight.position == from_square:
-                    return knight.move(self.current_player, game, self.board[from_square], self.board[to_square])
+                    return knight.move(self.current_player, self, self.board[from_square], self.board[to_square])
         elif self.board[from_square]['piece'] == 'bishop':
             for bishop in getattr(self, f'{self.current_player}_bishop'):
                 if bishop.position == from_square:
-                    return bishop.move(self.current_player, game, self.board[from_square], self.board[to_square])
+                    return bishop.move(self.current_player, self, self.board[from_square], self.board[to_square])
         elif self.board[from_square]['piece'] == 'rook':
             for rook in getattr(self, f'{self.current_player}_rook'):
                 if rook.position == from_square:
-                    return rook.move(self.current_player, game, self.board[from_square], self.board[to_square])
+                    return rook.move(self.current_player, self, self.board[from_square], self.board[to_square])
         elif self.board[from_square]['piece'] == 'queen':
             for queen in getattr(self, f'{self.current_player}_queen'):
                 if queen.position == from_square:
-                    return queen.move(self.current_player, game, self.board[from_square], self.board[to_square])
+                    return queen.move(self.current_player, self, self.board[from_square], self.board[to_square])
         elif self.board[from_square]['piece'] == 'king':
             king = getattr(self, f'{self.current_player}_king')
             if king.position == from_square:
-                return king.move(self.current_player, game, self.board[from_square], self.board[to_square]) 
+                return king.move(self.current_player, self, self.board[from_square], self.board[to_square]) 
         return False 
     
     def print_board(self):
