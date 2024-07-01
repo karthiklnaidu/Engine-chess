@@ -107,7 +107,8 @@ class ChessBoard(tk.Frame):
             message = game.is_valid_move(from_square, to_square)
 
             if message is not None:
-                self.game.move_piece(from_square, to_square)
+                if message is True:
+                    self.game.move_piece(from_square, to_square)
                 self.update_board()
                 if message == "checkmated":
                     print(message)
